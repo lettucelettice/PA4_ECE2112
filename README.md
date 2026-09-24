@@ -59,5 +59,32 @@ VisFemale[['Name', 'Track', 'GEAS', 'Electronics', 'Average']]
 ### C. Category-Average Visualization 
 
 ```python
+import matplotlib.pyplot as plt 
+
+#compute mean per track, genderm hometown
+means = {
+    "Track": df.groupby("Track")["Average"].mean(),
+    "Gender": df.groupby("Gender")["Average"].mean(),
+    "Hometown": df.groupby("Hometown")["Average"].mean()
+}
+
+colors = ["skyblue", "yellow", "pink"]
+
+#plot
+plt.figure(figsize=(15,4))
+
+for i, ((key, value), color) in enumerate(zip(means.items(), colors), 1):
+    plt.subplot(1,3,i)
+    value.plot(kind='bar',color = color)
+    plt.title(f"Average by {key}")
+    plt.xlabel(key)
+    plt.ylabel("Average")
+
+plt.tight_layout()
+plt.show()
 ```
+
+**Output:**
+
+<img width="1687" height="453" alt="image" src="https://github.com/user-attachments/assets/d458cc7b-f187-4193-8301-6278465d9cda" />
 
